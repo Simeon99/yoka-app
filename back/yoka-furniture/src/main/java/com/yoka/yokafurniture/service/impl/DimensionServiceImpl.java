@@ -11,7 +11,6 @@ import com.yoka.yokafurniture.repository.ArticleRepository;
 import com.yoka.yokafurniture.repository.DimensionRepository;
 import com.yoka.yokafurniture.service.DimensionService;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 

@@ -28,16 +28,13 @@ public class Article{
     private String baseAndLegs;
     @Column(name = "system_mechanism")
     private String systemMechanism;
-//    @Column(name = "width", nullable = false)
-//    private double width;
-//    @Column(name = "height", nullable = false)
-//    private double height;
-//    @Column(name = "length", nullable = false)
-//    private double length;
     @Column(name = "price", nullable = false)
     private double price;
     @Column(name = "discount")
     private double discount;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Description> descriptions = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

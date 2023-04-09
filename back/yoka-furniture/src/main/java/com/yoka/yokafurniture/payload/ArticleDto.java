@@ -1,7 +1,6 @@
 package com.yoka.yokafurniture.payload;
 
-import com.yoka.yokafurniture.entity.Colour;
-import jakarta.persistence.Column;
+import com.yoka.yokafurniture.payload.Description.DescriptionDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +19,7 @@ public class ArticleDto {
     private String systemMechanism;
     private double price;
     private double discount;
+    private Set<DescriptionDto> descriptions;
     private Set<ColourDto> colours;
     private Set<DimensionDto> dimensions;
 }

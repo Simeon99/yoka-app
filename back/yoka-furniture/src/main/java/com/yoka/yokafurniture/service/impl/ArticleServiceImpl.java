@@ -81,9 +81,6 @@ public class ArticleServiceImpl implements ArticleService {
         article.setBodyOutside(articleDto.getBodyOutside());
         article.setBaseAndLegs(articleDto.getBaseAndLegs());
         article.setSystemMechanism(articleDto.getSystemMechanism());
-//        article.setWidth(articleDto.getWidth());
-//        article.setHeight(articleDto.getHeight());
-//        article.setLength(articleDto.getLength());
         article.setPrice(articleDto.getPrice());
         article.setDiscount(articleDto.getDiscount());
 
@@ -102,31 +99,12 @@ public class ArticleServiceImpl implements ArticleService {
 
         ArticleDto articleDto = mapper.map(article, ArticleDto.class);
 
-//        ArticleDto articleDto = new ArticleDto();
-//
-//        articleDto.setId(article.getId());
-//        articleDto.setName(article.getName());
-//        articleDto.setColour(article.getColour());
-//        articleDto.setWidth(article.getWidth());
-//        articleDto.setHeight(article.getHeight());
-//        articleDto.setLength(article.getLength());
-//        articleDto.setPrice(article.getPrice());
-
         return articleDto;
     }
 
     private Article mapToEntity(ArticleDto articleDto){
 
         Article article = mapper.map(articleDto, Article.class);
-
-//        Article article = new Article();
-
-//        article.setName(articleDto.getName());
-//        article.setColour(articleDto.getColour());
-//        article.setWidth(articleDto.getWidth());
-//        article.setHeight(articleDto.getHeight());
-//        article.setLength(articleDto.getLength());
-//        article.setPrice(articleDto.getPrice());
 
         return article;
 
