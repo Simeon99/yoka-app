@@ -21,6 +21,8 @@ public class Colour {
     private long id;
     @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "name_sr", nullable = false)
+    private String nameSr;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "colours")
     private Set<Article> articles = new HashSet<>();;

@@ -1,12 +1,15 @@
 package com.yoka.yokafurniture.controller;
 
 import com.yoka.yokafurniture.payload.ColourDto;
+import com.yoka.yokafurniture.payload.ColourResponse;
 import com.yoka.yokafurniture.service.ColourService;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/")
@@ -27,8 +30,9 @@ public class ColourController {
     }
 
     @GetMapping("articles/{articleId}/colours")
-    public List<ColourDto> getColourByArticleId (@PathVariable (name = "articleId") long articleId){
-        return colourService.getColorsByArticleId(articleId);
+    public List<ColourResponse> getColourByArticleId (@PathVariable (name = "articleId") long articleId,
+                                                      @RequestHeader(name = "Accept-Language", required = false) Locale locale){
+        return colourService.getColorsByArticleId(articleId, LocaleContextHolder.getLocale());
     }
 
     @PostMapping("articles/{articleId}/colours/{colourId}")

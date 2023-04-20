@@ -5,6 +5,7 @@ import com.yoka.yokafurniture.entity.Colour;
 import com.yoka.yokafurniture.exception.AppAPIExceptions;
 import com.yoka.yokafurniture.exception.ResourceNotFoundException;
 import com.yoka.yokafurniture.payload.ColourDto;
+import com.yoka.yokafurniture.payload.ColourResponse;
 import com.yoka.yokafurniture.repository.ArticleRepository;
 import com.yoka.yokafurniture.repository.ColourRepository;
 import com.yoka.yokafurniture.service.ColourService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class ColourServiceImpl implements ColourService {
@@ -42,13 +44,20 @@ public class ColourServiceImpl implements ColourService {
     }
 
     @Override
-    public List<ColourDto> getColorsByArticleId(long articleId) {
+    public List<ColourResponse> getColorsByArticleId(long articleId, Locale locale) {
 
         Article article = articleRepository.findById(articleId).orElseThrow(()->new ResourceNotFoundException("Article", "id", articleId));
 
         List<Colour> colours = colourRepository.findColoursByArticlesId(articleId);
 
-        return colours.stream().map( colour -> mapToDto(colour)).toList();
+        if(locale.toString().equalsIgnoreCase("sr")){
+            return colours.stream().map(colour -> mapToDtoSr(colour)).toList();
+        }else if(locale.toString().equalsIgnoreCase("en")){
+            return colours.stream().map(colour -> mapToDtoEn(colour)).toList();
+        }
+
+
+        return colours.stream().map( colour -> mapToDtoEn(colour)).toList();
     }
 
     @Override
@@ -95,6 +104,19 @@ public class ColourServiceImpl implements ColourService {
     private ColourDto mapToDto(Colour colour){
         ColourDto colourDto = modelMapper.map(colour, ColourDto.class);
         return colourDto;
+    }
+
+    private ColourResponse mapToDtoSr(Colour colour){
+        ColourResponse colourResponse = new ColourResponse();
+        colourResponse.setId(colour.getId());
+        colourResponse.setName(colour.getNameSr());
+
+        return colourResponse;
+    }
+
+    private ColourResponse mapToDtoEn(Colour colour){
+        ColourResponse colourResponse = modelMapper.map(colour, ColourResponse.class);
+        return colourResponse;
     }
 
     private Colour mapToColour(ColourDto colourDto){
