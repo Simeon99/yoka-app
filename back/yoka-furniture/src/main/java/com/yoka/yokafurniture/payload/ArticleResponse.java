@@ -1,6 +1,5 @@
 package com.yoka.yokafurniture.payload;
 
-import com.yoka.yokafurniture.entity.Dimension;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

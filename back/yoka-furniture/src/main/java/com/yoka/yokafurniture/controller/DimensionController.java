@@ -3,7 +3,6 @@ package com.yoka.yokafurniture.controller;
 import com.yoka.yokafurniture.payload.DimensionDto;
 import com.yoka.yokafurniture.payload.DimensionResponse;
 import com.yoka.yokafurniture.service.DimensionService;
-import com.yoka.yokafurniture.utils.AppConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

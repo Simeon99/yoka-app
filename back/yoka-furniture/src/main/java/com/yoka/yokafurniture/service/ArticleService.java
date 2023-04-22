@@ -1,6 +1,5 @@
 package com.yoka.yokafurniture.service;
 
-import com.yoka.yokafurniture.entity.Article;
 import com.yoka.yokafurniture.payload.ArticleDto;
 import com.yoka.yokafurniture.payload.ArticleResponse;
 
