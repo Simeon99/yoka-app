@@ -95,6 +95,7 @@ public class ColourServiceImpl implements ColourService {
         Colour colour = colourRepository.findById(colourId).orElseThrow(()->new ResourceNotFoundException("Colour", "id", colourId));
 
         colour.setName(colourDto.getName());
+        colour.setNameSr(colourDto.getNameSr());
 
         Colour updatedColour = colourRepository.save(colour);
 

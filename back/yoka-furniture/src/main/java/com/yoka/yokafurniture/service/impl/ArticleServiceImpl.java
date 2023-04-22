@@ -77,10 +77,6 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = articleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Article","id", id));
 
         article.setName(articleDto.getName());
-        article.setBodyInside(articleDto.getBodyInside());
-        article.setBodyOutside(articleDto.getBodyOutside());
-        article.setBaseAndLegs(articleDto.getBaseAndLegs());
-        article.setSystemMechanism(articleDto.getSystemMechanism());
         article.setPrice(articleDto.getPrice());
         article.setDiscount(articleDto.getDiscount());
 

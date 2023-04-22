@@ -20,14 +20,6 @@ public class Article{
     private long id;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "body_inside")
-    private String bodyInside;
-    @Column(name = "body_outside")
-    private String bodyOutside;
-    @Column(name = "bass_and_legs")
-    private String baseAndLegs;
-    @Column(name = "system_mechanism")
-    private String systemMechanism;
     @Column(name = "price", nullable = false)
     private double price;
     @Column(name = "discount")

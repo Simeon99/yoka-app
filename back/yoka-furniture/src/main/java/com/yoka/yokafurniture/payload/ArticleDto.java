@@ -13,10 +13,6 @@ import java.util.Set;
 public class ArticleDto {
     private long id;
     private String name;
-    private String bodyInside;
-    private String bodyOutside;
-    private String baseAndLegs;
-    private String systemMechanism;
     private double price;
     private double discount;
     private Set<DescriptionDto> descriptions;
