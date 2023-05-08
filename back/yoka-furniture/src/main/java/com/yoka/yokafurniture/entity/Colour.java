@@ -24,6 +24,8 @@ public class Colour {
     @Column(name = "name_sr", nullable = false)
     private String nameSr;
 
+    private String mediaLink;
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "colours")
     private Set<Article> articles = new HashSet<>();;
 

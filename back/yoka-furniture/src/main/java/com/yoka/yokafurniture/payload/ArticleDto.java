@@ -18,4 +18,5 @@ public class ArticleDto {
     private Set<DescriptionDto> descriptions;
     private Set<ColourDto> colours;
     private Set<DimensionDto> dimensions;
+    private Set<ArticleImageDto> articleImages;
 }

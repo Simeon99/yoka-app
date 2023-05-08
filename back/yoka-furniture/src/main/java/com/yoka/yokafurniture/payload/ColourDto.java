@@ -11,4 +11,5 @@ public class ColourDto {
     private long id;
     private String name;
     private String nameSr;
+    private String mediaLink;
 }

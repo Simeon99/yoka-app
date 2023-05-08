@@ -3,10 +3,13 @@ package com.yoka.yokafurniture.controller;
 import com.yoka.yokafurniture.payload.ColourDto;
 import com.yoka.yokafurniture.payload.ColourResponse;
 import com.yoka.yokafurniture.service.ColourService;
+import com.yoka.yokafurniture.service.FileStoreService;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.Locale;
@@ -16,14 +19,30 @@ import java.util.Locale;
 public class ColourController {
 
     private ColourService colourService;
+    private FileStoreService fileStoreService;
 
-    public ColourController(ColourService colourService) {
+    public ColourController(ColourService colourService, FileStoreService fileStoreService) {
         this.colourService = colourService;
+        this.fileStoreService = fileStoreService;
     }
 
     @PostMapping("articles/{articleId}/colours")
-    public ResponseEntity<ColourDto> createColour(@RequestBody ColourDto colourDto,
-                                                  @PathVariable(name = "articleId") long articleId){
+    public ResponseEntity<ColourDto> createColour(@PathVariable(name = "articleId") long articleId,
+                                                  @RequestParam(name = "name")String name,
+                                                  @RequestParam(name = "nameSr")String nameSr,
+                                                  @RequestParam(name = "file") MultipartFile file){
+
+        String fileName = fileStoreService.storeFile(file);
+
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/download/")
+                .path(fileName)
+                .toUriString();
+
+        ColourDto colourDto = new ColourDto();
+        colourDto.setName(name);
+        colourDto.setNameSr(nameSr);
+        colourDto.setMediaLink(url);
 
         return new ResponseEntity<>(colourService.createColour(colourDto,articleId), HttpStatus.CREATED);
 

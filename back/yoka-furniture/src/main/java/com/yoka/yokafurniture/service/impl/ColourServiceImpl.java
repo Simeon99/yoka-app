@@ -111,6 +111,7 @@ public class ColourServiceImpl implements ColourService {
         ColourResponse colourResponse = new ColourResponse();
         colourResponse.setId(colour.getId());
         colourResponse.setName(colour.getNameSr());
+        colourResponse.setMediaLink(colour.getMediaLink());
 
         return colourResponse;
     }

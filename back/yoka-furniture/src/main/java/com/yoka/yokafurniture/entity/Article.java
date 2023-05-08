@@ -44,6 +44,9 @@ public class Article{
     )
     private Set<Dimension> dimensions = new HashSet<>();
 
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ArticleImage> articleImages = new HashSet<>();
+
     private void addColour(Colour colour){
         this.colours.add(colour);
         colour.getArticles().add(this);
