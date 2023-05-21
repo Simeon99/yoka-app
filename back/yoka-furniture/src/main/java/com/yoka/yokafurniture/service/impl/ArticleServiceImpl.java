@@ -1,10 +1,12 @@
 package com.yoka.yokafurniture.service.impl;
 
 import com.yoka.yokafurniture.entity.Article;
+import com.yoka.yokafurniture.entity.Category;
 import com.yoka.yokafurniture.exception.ResourceNotFoundException;
 import com.yoka.yokafurniture.payload.ArticleDto;
 import com.yoka.yokafurniture.payload.ArticleResponse;
 import com.yoka.yokafurniture.repository.ArticleRepository;
+import com.yoka.yokafurniture.repository.CategoryRepository;
 import com.yoka.yokafurniture.service.ArticleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -14,23 +16,30 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
     private ArticleRepository articleRepository;
+    private CategoryRepository categoryRepository;
     private ModelMapper mapper;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository, ModelMapper mapper) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, CategoryRepository categoryRepository, ModelMapper mapper) {
         this.articleRepository = articleRepository;
+        this.categoryRepository = categoryRepository;
         this.mapper = mapper;
     }
 
     @Override
-    public ArticleDto createArticle(ArticleDto articleDto) {
+    public ArticleDto createArticle(ArticleDto articleDto, long categoryId) {
 
         Article article = mapToEntity(articleDto);
+
+        Category category = categoryRepository.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category","id", categoryId));
+
+        article.setCategory(category);
 
         Article newArticle = articleRepository.save(article);
 
@@ -61,6 +70,14 @@ public class ArticleServiceImpl implements ArticleService {
         articleResponse.setLast(articles.isLast());
 
         return articleResponse;
+    }
+
+    @Override
+    public List<ArticleDto> getAllArticlesByCategoryId(long categoryId) {
+
+        List<Article> articles= articleRepository.findByCategoryId(categoryId);
+
+        return articles.stream().map(article -> mapToDto(article)).collect(Collectors.toList());
     }
 
     @Override

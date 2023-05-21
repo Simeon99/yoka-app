@@ -1,5 +1,6 @@
 package com.yoka.yokafurniture.payload;
 
+import com.yoka.yokafurniture.entity.Category;
 import com.yoka.yokafurniture.payload.Description.DescriptionDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;

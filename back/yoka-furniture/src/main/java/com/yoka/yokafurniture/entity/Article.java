@@ -24,6 +24,9 @@ public class Article{
     private double price;
     @Column(name = "discount")
     private double discount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Description> descriptions = new HashSet<>();

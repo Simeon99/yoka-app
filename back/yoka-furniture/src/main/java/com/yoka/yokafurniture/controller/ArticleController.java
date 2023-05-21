@@ -20,9 +20,10 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
-    @PostMapping
-    public ResponseEntity<ArticleDto> createArticle(@RequestBody ArticleDto articleDto){
-        return new ResponseEntity<>(articleService.createArticle(articleDto), HttpStatus.CREATED);
+    @PostMapping("/category/{categoryId}")
+    public ResponseEntity<ArticleDto> createArticle(@RequestBody ArticleDto articleDto,
+                                                    @PathVariable long categoryId){
+        return new ResponseEntity<>(articleService.createArticle(articleDto, categoryId), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -32,6 +33,11 @@ public class ArticleController {
             @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY,required = false)String sortBy,
             @RequestParam(name = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIR,required = false)String sortDir){
         return articleService.getAllArticles(pageNo, pageSize, sortBy, sortDir);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public List<ArticleDto> getAllArticlesByArticleId(@PathVariable long categoryId){
+        return articleService.getAllArticlesByCategoryId(categoryId);
     }
 
     @GetMapping("/{id}")
@@ -47,6 +53,6 @@ public class ArticleController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteArticle(@PathVariable(name = "id") long id){
         articleService.deleteArticle(id);
-        return new ResponseEntity<>("Article successfuly deleted.", HttpStatus.OK);
+        return new ResponseEntity<>("Article successfully deleted.", HttpStatus.OK);
     }
 }
