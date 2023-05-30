@@ -1,13 +1,19 @@
 package com.yoka.yokafurniture.controller;
 
 import com.yoka.yokafurniture.payload.ArticleDto;
+import com.yoka.yokafurniture.payload.ArticleImageDto;
 import com.yoka.yokafurniture.payload.ArticleResponse;
+import com.yoka.yokafurniture.service.ArticleImageService;
 import com.yoka.yokafurniture.service.ArticleService;
+import com.yoka.yokafurniture.service.FileStoreService;
 import com.yoka.yokafurniture.utils.AppConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,15 +21,51 @@ import java.util.List;
 public class ArticleController {
 
     private ArticleService articleService;
+    private FileStoreService fileStoreService;
 
-    public ArticleController(ArticleService articleService) {
+    private ArticleImageService articleImageService;
+
+    public ArticleController(ArticleService articleService, FileStoreService fileStoreService, ArticleImageService articleImageService) {
         this.articleService = articleService;
+        this.fileStoreService = fileStoreService;
+        this.articleImageService = articleImageService;
     }
 
     @PostMapping("/category/{categoryId}")
-    public ResponseEntity<ArticleDto> createArticle(@RequestBody ArticleDto articleDto,
-                                                    @PathVariable long categoryId){
-        return new ResponseEntity<>(articleService.createArticle(articleDto, categoryId), HttpStatus.CREATED);
+    public ResponseEntity<ArticleDto> createArticle(@PathVariable long categoryId,
+                                                    @RequestParam("name") String name,
+                                                    @RequestParam("price") double price,
+                                                    @RequestParam("discount") double discount,
+                                                    @RequestParam("multipleFiles") MultipartFile[] files){
+
+        ArticleDto articleDto = new ArticleDto();
+
+        articleDto.setName(name);
+        articleDto.setPrice(price);
+        articleDto.setDiscount(discount);
+
+        ArticleDto articleResponse  =  articleService.createArticle(articleDto, categoryId);
+
+
+        for(int i  = 0 ; i < files.length ; i++){
+            ArticleImageDto articleImageDto = new ArticleImageDto();
+            String fileName = fileStoreService.storeFile(files[i]);
+
+            String url = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/download/")
+                    .path(fileName)
+                    .toUriString();
+
+            articleImageDto.setMediaLink(url);
+
+
+            ArticleImageDto articleImageResponse = articleImageService.createArticleImage(articleImageDto,articleResponse.getId());
+            articleResponse.getArticleImages().add(articleImageResponse);
+
+        }
+
+
+        return new ResponseEntity<>(articleResponse, HttpStatus.CREATED);
     }
 
     @GetMapping

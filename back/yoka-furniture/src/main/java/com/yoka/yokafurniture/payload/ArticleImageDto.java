@@ -11,6 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ArticleImageDto {
     private long id;
-    private String name;
     private String mediaLink;
 }

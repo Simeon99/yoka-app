@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -24,8 +25,8 @@ public class Article{
     private double price;
     @Column(name = "discount")
     private double discount;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", nullable = true)
     private Category category;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -54,5 +55,6 @@ public class Article{
         this.colours.add(colour);
         colour.getArticles().add(this);
     }
+
 
 }

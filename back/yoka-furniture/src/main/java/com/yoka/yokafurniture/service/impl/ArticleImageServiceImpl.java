@@ -43,6 +43,18 @@ public class ArticleImageServiceImpl implements ArticleImageService {
     }
 
     @Override
+    public ArticleImageDto createImage(ArticleImageDto articleImageDto) {
+        ArticleImage articleImage = mapToArticleImage(articleImageDto);
+
+        System.out.println("AAAAAAAAAAAAAAAAAAA: "+articleImage.getArticle().toString());
+
+        ArticleImage articleImageResponse = articleImageRepository.save(articleImage);
+
+
+        return mapToDto(articleImageResponse);
+    }
+
+    @Override
     public List<ArticleImageDto> getAllByArticleId(long articleId) {
 
         List<ArticleImage> articles = articleImageRepository.findByArticleId(articleId);

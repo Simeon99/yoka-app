@@ -16,11 +16,10 @@ public class ArticleImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
     @Column(nullable = false)
     private String mediaLink;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "article_id", nullable = true)
     private Article article;
 }

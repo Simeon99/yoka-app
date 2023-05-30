@@ -1,11 +1,13 @@
 package com.yoka.yokafurniture.payload;
 
 import com.yoka.yokafurniture.entity.Category;
+import com.yoka.yokafurniture.entity.Colour;
 import com.yoka.yokafurniture.payload.Description.DescriptionDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -19,5 +21,6 @@ public class ArticleDto {
     private Set<DescriptionDto> descriptions;
     private Set<ColourDto> colours;
     private Set<DimensionDto> dimensions;
-    private Set<ArticleImageDto> articleImages;
+    private Set<ArticleImageDto> articleImages = new HashSet<>();
+
 }

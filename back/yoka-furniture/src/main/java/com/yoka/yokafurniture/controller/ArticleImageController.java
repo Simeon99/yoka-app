@@ -25,7 +25,6 @@ public class ArticleImageController {
 
     @PostMapping("articles/{articleId}/articleImage")
     public ResponseEntity<ArticleImageDto> createArticleImage( @PathVariable (value = "articleId") long articleId,
-                                                               @RequestParam (name = "name") String name,
                                                                @RequestParam(name = "file") MultipartFile file){
 
         String fileName = fileStoreService.storeFile(file);
@@ -36,7 +35,6 @@ public class ArticleImageController {
                 .toUriString();
 
         ArticleImageDto articleImageDto = new ArticleImageDto();
-        articleImageDto.setName(name);
         articleImageDto.setMediaLink(url);
 
         return new ResponseEntity<>(articleImageService.createArticleImage(articleImageDto,articleId), HttpStatus.CREATED);
