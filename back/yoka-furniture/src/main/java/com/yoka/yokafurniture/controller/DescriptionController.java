@@ -27,9 +27,11 @@ public class DescriptionController {
 
     }
 
+    @CrossOrigin
     @GetMapping("articles/{articleId}/descriptions")
     public List<DescriptionResponse> getDescriptionsByArticleId(@PathVariable (name = "articleId") long articleId,
-                                                                @RequestHeader(name = "Accept-Language", required = false) Locale locale){
+                                                                @RequestHeader(name = "Accept-Language", required = false) String localeString){
+        Locale locale = new Locale(localeString);
         return descriptionService.getAllDescriptionsByArticleId(articleId, LocaleContextHolder.getLocale());
     }
 

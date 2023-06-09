@@ -2,6 +2,7 @@ package com.yoka.yokafurniture.controller;
 
 import com.yoka.yokafurniture.payload.CategoryDto;
 import com.yoka.yokafurniture.payload.CategoryResponse;
+import com.yoka.yokafurniture.payload.Description.DescriptionResponse;
 import com.yoka.yokafurniture.service.CategoryService;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -31,9 +32,17 @@ public class CategoryController {
 
     }
 
+    @CrossOrigin
     @GetMapping
-    public List<CategoryResponse> getAllCategories(@RequestHeader(name = "Accept-Language", required = false) Locale locale){
-        return categoryService.getAllCategories(LocaleContextHolder.getLocale());
+    public ResponseEntity<List<CategoryResponse>> getAllCategories(@RequestHeader(name = "Accept-Language", required = false) Locale locale){
+        return ResponseEntity.ok(categoryService.getAllCategories(LocaleContextHolder.getLocale()));
+    }
+
+    @CrossOrigin
+    @GetMapping("/{id}")
+    public  ResponseEntity<CategoryResponse> getCategoryById(@PathVariable long id, @RequestHeader(name = "Accept-Language", required = false) String localeString){
+        Locale locale = new Locale(localeString);
+        return ResponseEntity.ok(categoryService.getCategoryById(id, LocaleContextHolder.getLocale()));
     }
 
     @PutMapping("/{id}")

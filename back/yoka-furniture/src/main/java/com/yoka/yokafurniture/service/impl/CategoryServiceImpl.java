@@ -49,6 +49,20 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryResponse getCategoryById(long id, Locale locale) {
+
+        Category category = categoryRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Category","id", id));
+
+        if (locale.toString().equalsIgnoreCase("sr")){
+            return mapToDtoSr(category);
+        }else if(locale.toString().equalsIgnoreCase("en")){
+            return  mapToDtoEn(category);
+        }
+
+        return  mapToDtoEn(category);
+    }
+
+    @Override
     public CategoryDto updateCategory(CategoryDto categoryDto, long id) {
 
         Category category = categoryRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Category","id", id));

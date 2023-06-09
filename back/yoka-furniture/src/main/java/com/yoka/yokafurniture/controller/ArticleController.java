@@ -77,11 +77,13 @@ public class ArticleController {
         return articleService.getAllArticles(pageNo, pageSize, sortBy, sortDir);
     }
 
+    @CrossOrigin
     @GetMapping("/category/{categoryId}")
     public List<ArticleDto> getAllArticlesByArticleId(@PathVariable long categoryId){
         return articleService.getAllArticlesByCategoryId(categoryId);
     }
 
+    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDto> getArticleById(@PathVariable(name = "id") long id){
         return ResponseEntity.ok(articleService.getArticleById(id));
