@@ -48,6 +48,7 @@ public class ColourController {
 
     }
 
+    @CrossOrigin
     @GetMapping("articles/{articleId}/colours")
     public List<ColourResponse> getColourByArticleId (@PathVariable (name = "articleId") long articleId,
                                                       @RequestHeader(name = "Accept-Language", required = false) Locale locale){

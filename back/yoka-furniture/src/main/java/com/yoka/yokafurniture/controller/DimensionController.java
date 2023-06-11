@@ -25,6 +25,7 @@ public class DimensionController {
         return new ResponseEntity<>(dimensionService.createDimension(dimensionDto,articleId), HttpStatus.CREATED);
     }
 
+    @CrossOrigin
     @GetMapping("articles/{articleId}/dimensions")
     public DimensionResponse getAllDimensionByArticleId(@PathVariable (name = "articleId") long articleId){
 
