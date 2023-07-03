@@ -1,7 +1,10 @@
 package com.yoka.yokafurniture.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.yoka.yokafurniture.exception.AppAPIExceptions;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -51,9 +54,21 @@ public class Article{
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ArticleImage> articleImages = new HashSet<>();
 
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<OrderItem> orderItems = new HashSet<>();
+
     private void addColour(Colour colour){
         this.colours.add(colour);
         colour.getArticles().add(this);
+    }
+
+    public void deleteOrderItem(OrderItem orderItem){
+        OrderItem orderItemRemove= this.orderItems.stream().filter(o -> o.getId() == orderItem.getId()).findFirst().orElse(null);
+        if (orderItemRemove != null){
+            this.orderItems.remove(orderItemRemove);
+//            orderItemRemove.setOrder(null);
+        } else throw  new AppAPIExceptions(HttpStatus.BAD_REQUEST,"Order does not have this orderItem.");
     }
 
 
