@@ -1,7 +1,7 @@
 package com.yoka.yokafurniture.entity;
 
 import com.yoka.yokafurniture.exception.AppAPIExceptions;
-import com.yoka.yokafurniture.payload.DimensionType;
+import com.yoka.yokafurniture.payload.Dimension.DimensionType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
 package com.yoka.yokafurniture.service;
 
-import com.yoka.yokafurniture.payload.CategoryDto;
-import com.yoka.yokafurniture.payload.CategoryResponse;
+import com.yoka.yokafurniture.payload.Category.CategoryDto;
+import com.yoka.yokafurniture.payload.Category.CategoryResponse;
 
 import java.util.List;
 import java.util.Locale;

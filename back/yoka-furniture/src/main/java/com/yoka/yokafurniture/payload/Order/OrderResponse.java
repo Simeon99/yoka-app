@@ -1,5 +1,6 @@
-package com.yoka.yokafurniture.payload;
+package com.yoka.yokafurniture.payload.Order;
 
+import com.yoka.yokafurniture.payload.Order.OrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

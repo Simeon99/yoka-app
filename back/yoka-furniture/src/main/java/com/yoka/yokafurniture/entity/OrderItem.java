@@ -29,7 +29,7 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = true)
     private Order order;
 
-    public void setPrice() {
-        this.price = article.getPrice() * quantity;
+    public void setPrice(ArticlePrice articlePrice) {
+        this.price = articlePrice.getPrice() * quantity;
     }
 }

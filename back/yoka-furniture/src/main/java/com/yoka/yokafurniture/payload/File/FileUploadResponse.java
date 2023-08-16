@@ -1,4 +1,4 @@
-package com.yoka.yokafurniture.payload;
+package com.yoka.yokafurniture.payload.File;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

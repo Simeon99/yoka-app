@@ -1,7 +1,7 @@
 package com.yoka.yokafurniture.service;
 
-import com.yoka.yokafurniture.payload.DimensionDto;
-import com.yoka.yokafurniture.payload.DimensionResponse;
+import com.yoka.yokafurniture.payload.Dimension.DimensionDto;
+import com.yoka.yokafurniture.payload.Dimension.DimensionResponse;
 
 
 public interface DimensionService {

@@ -1,6 +1,6 @@
 package com.yoka.yokafurniture.controller;
 
-import com.yoka.yokafurniture.payload.OrderItemDto;
+import com.yoka.yokafurniture.payload.OrderItem.OrderItemDto;
 import com.yoka.yokafurniture.service.OrderItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +20,9 @@ public class OrderItemController {
     }
 
     @PostMapping("/article/{articleId}/quantity/{quantity}")
-    public ResponseEntity<OrderItemDto> createOrderItem(@PathVariable long articleId, @PathVariable int quantity){
+    public ResponseEntity<OrderItemDto> createOrderItem(@PathVariable long articleId, @PathVariable int quantity, @PathVariable double width, @PathVariable double length, @PathVariable double height){
 
-        return new ResponseEntity<>(orderItemService.createOrederItem(articleId,quantity), HttpStatus.CREATED);
+        return new ResponseEntity<>(orderItemService.createOrederItem(articleId,quantity, width, length, height), HttpStatus.CREATED);
 
     }
 }

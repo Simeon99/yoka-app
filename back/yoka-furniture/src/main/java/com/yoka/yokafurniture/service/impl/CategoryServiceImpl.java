@@ -2,8 +2,8 @@ package com.yoka.yokafurniture.service.impl;
 
 import com.yoka.yokafurniture.entity.Category;
 import com.yoka.yokafurniture.exception.ResourceNotFoundException;
-import com.yoka.yokafurniture.payload.CategoryDto;
-import com.yoka.yokafurniture.payload.CategoryResponse;
+import com.yoka.yokafurniture.payload.Category.CategoryDto;
+import com.yoka.yokafurniture.payload.Category.CategoryResponse;
 import com.yoka.yokafurniture.repository.CategoryRepository;
 import com.yoka.yokafurniture.service.CategoryService;
 import org.modelmapper.ModelMapper;

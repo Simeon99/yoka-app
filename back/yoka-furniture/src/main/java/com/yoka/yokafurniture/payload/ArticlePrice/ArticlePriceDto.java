@@ -1,4 +1,4 @@
-package com.yoka.yokafurniture.payload;
+package com.yoka.yokafurniture.payload.ArticlePrice;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DimensionDto {
+public class ArticlePriceDto {
     private long id;
-    private double dimension;
-    private String type;
+
+    private double width;
+    private double length;
+    private double height;
+    private double price;
 }

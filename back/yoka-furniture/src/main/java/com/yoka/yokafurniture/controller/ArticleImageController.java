@@ -1,6 +1,6 @@
 package com.yoka.yokafurniture.controller;
 
-import com.yoka.yokafurniture.payload.ArticleImageDto;
+import com.yoka.yokafurniture.payload.ArticleImage.ArticleImageDto;
 import com.yoka.yokafurniture.service.ArticleImageService;
 import com.yoka.yokafurniture.service.FileStoreService;
 import org.springframework.http.HttpStatus;

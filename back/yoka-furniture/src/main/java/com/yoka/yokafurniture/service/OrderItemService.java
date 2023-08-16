@@ -1,8 +1,7 @@
 package com.yoka.yokafurniture.service;
 
-import com.yoka.yokafurniture.entity.Order;
-import com.yoka.yokafurniture.payload.OrderItemDto;
+import com.yoka.yokafurniture.payload.OrderItem.OrderItemDto;
 
 public interface OrderItemService {
-    public OrderItemDto createOrederItem(long articleId, int quantity);
+    public OrderItemDto createOrederItem(long articleId, int quantity, double width, double length, double height);
 }

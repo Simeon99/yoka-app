@@ -1,7 +1,7 @@
 package com.yoka.yokafurniture.controller;
 
-import com.yoka.yokafurniture.payload.ColourDto;
-import com.yoka.yokafurniture.payload.ColourResponse;
+import com.yoka.yokafurniture.payload.Colour.ColourDto;
+import com.yoka.yokafurniture.payload.Colour.ColourResponse;
 import com.yoka.yokafurniture.service.ColourService;
 import com.yoka.yokafurniture.service.FileStoreService;
 import org.springframework.context.i18n.LocaleContextHolder;

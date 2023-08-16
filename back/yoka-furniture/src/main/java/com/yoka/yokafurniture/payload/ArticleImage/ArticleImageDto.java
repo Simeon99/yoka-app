@@ -1,4 +1,4 @@
-package com.yoka.yokafurniture.payload;
+package com.yoka.yokafurniture.payload.ArticleImage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ColourResponse {
+public class ArticleImageDto {
     private long id;
-    private String name;
     private String mediaLink;
 }

@@ -3,7 +3,7 @@ package com.yoka.yokafurniture.service.impl;
 import com.yoka.yokafurniture.entity.DeliveryAddress;
 import com.yoka.yokafurniture.entity.Order;
 import com.yoka.yokafurniture.exception.ResourceNotFoundException;
-import com.yoka.yokafurniture.payload.DeliveryAddressDto;
+import com.yoka.yokafurniture.payload.DeliveryAdress.DeliveryAddressDto;
 import com.yoka.yokafurniture.repository.DeliveryAddressRepository;
 import com.yoka.yokafurniture.repository.OrderRepository;
 import com.yoka.yokafurniture.service.DeliveryAddressService;

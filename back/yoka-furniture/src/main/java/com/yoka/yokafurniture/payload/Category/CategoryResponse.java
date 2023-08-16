@@ -1,4 +1,4 @@
-package com.yoka.yokafurniture.payload;
+package com.yoka.yokafurniture.payload.Category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleImageDto {
+public class CategoryResponse {
     private long id;
-    private String mediaLink;
+    private String name;
+    private double shippingPrice;
 }

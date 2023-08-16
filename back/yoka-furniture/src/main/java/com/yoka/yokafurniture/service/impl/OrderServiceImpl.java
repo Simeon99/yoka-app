@@ -1,8 +1,15 @@
 package com.yoka.yokafurniture.service.impl;
 
 import com.yoka.yokafurniture.entity.*;
+import com.yoka.yokafurniture.exception.AppAPIExceptions;
 import com.yoka.yokafurniture.exception.ResourceNotFoundException;
-import com.yoka.yokafurniture.payload.*;
+import com.yoka.yokafurniture.payload.Article.ArticleDto;
+import com.yoka.yokafurniture.payload.DeliveryAdress.DeliveryAddressDto;
+import com.yoka.yokafurniture.payload.DeliveryContact.DeliveryContactDto;
+import com.yoka.yokafurniture.payload.Order.OrderDto;
+import com.yoka.yokafurniture.payload.Order.OrderItemToCreate;
+import com.yoka.yokafurniture.payload.Order.OrderResponse;
+import com.yoka.yokafurniture.payload.OrderItem.OrderItemDto;
 import com.yoka.yokafurniture.repository.ArticleRepository;
 import com.yoka.yokafurniture.repository.OrderItemRepository;
 import com.yoka.yokafurniture.repository.OrderRepository;
@@ -14,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -41,22 +49,32 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto createOrder(Map<Long, Integer> articlesMap, DeliveryAddressDto deliveryAddressDto) {
+    public OrderDto createOrder(List<OrderItemToCreate> orderItemToCreateList, DeliveryAddressDto deliveryAddressDto, DeliveryContactDto deliveryContactDto, boolean isSpecial) {
+
+        if(isSpecial){
+            checkSpecialOrder(deliveryContactDto);
+        }
+        System.out.println("AAAAAAAAAAAAA"+isSpecial);
 
         Date curentDate = new Date();
 
         DeliveryAddress deliveryAddress =  mapToDeliveryAddress(deliveryAddressDto);
 
+        DeliveryContact deliveryContact = mapToDeliveryContact(deliveryContactDto);
+
+
         Order order = new Order();
 
         order.setDeliveryAddress(deliveryAddress);
+        order.setDeliveryContact(deliveryContact);
         deliveryAddress.setOrder(order);
+        deliveryContact.setOrder(order);
 
         order.setDate(curentDate);
 
 
-        for( long key : articlesMap.keySet()){
-            OrderItemDto orderItemDto = orderItemService.createOrederItem(key, articlesMap.get(key));
+        for( OrderItemToCreate orderItemToCreate : orderItemToCreateList){
+            OrderItemDto orderItemDto = orderItemService.createOrederItem(orderItemToCreate.getArticleId(), orderItemToCreate.getQuantity(), orderItemToCreate.getWidth(), orderItemToCreate.getLength(), orderItemToCreate.getHeight());
             OrderItem orderItem = orderItemRepository.findById(orderItemDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Order","id",orderItemDto.getId()));
             order.addOrderItem(orderItem);
         }
@@ -88,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponse getAllOrders(int pageNo, int pageSize,String sortBy, String sortDir) {
+    public OrderResponse getAllOrders(int pageNo, int pageSize, String sortBy, String sortDir) {
 
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
@@ -121,6 +139,7 @@ public class OrderServiceImpl implements OrderService {
         orderDto.setTotalPrice(order.getTotalPrice());
         orderDto.setOrderItems(order.getOrderItems().stream().map( orderItem -> mapOrderItemToDto(orderItem)).collect(Collectors.toSet()));
         orderDto.setDeliveryAddressDto(mapToDeliveryAddressDto(order.getDeliveryAddress()));
+        orderDto.setDeliveryContactDto(mapDeliveryContactToDto(order.getDeliveryContact()));
 
         return orderDto;
     }
@@ -151,6 +170,21 @@ public class OrderServiceImpl implements OrderService {
     private DeliveryAddressDto mapToDeliveryAddressDto(DeliveryAddress deliveryAddress){
         DeliveryAddressDto deliveryAddressDto = mapper.map(deliveryAddress, DeliveryAddressDto.class);
         return deliveryAddressDto;
+    }
+
+    private DeliveryContact mapToDeliveryContact(DeliveryContactDto deliveryContactDto){
+        DeliveryContact deliveryContact = mapper.map(deliveryContactDto, DeliveryContact.class);
+        return deliveryContact;
+    }
+    private DeliveryContactDto mapDeliveryContactToDto(DeliveryContact deliveryContact){
+        DeliveryContactDto deliveryContactDto = mapper.map(deliveryContact, DeliveryContactDto.class);
+        return deliveryContactDto;
+    }
+    private void checkSpecialOrder(DeliveryContactDto deliveryContactDto){
+        if(deliveryContactDto.getCompanyName() == null || deliveryContactDto.getIdentificationNumber() == 0 || deliveryContactDto.getPib() == 0 ){
+            throw new AppAPIExceptions(HttpStatus.BAD_REQUEST,"Required argument cannot be null.");
+        }
+
     }
 
 

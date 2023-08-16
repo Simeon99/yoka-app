@@ -1,4 +1,4 @@
-package com.yoka.yokafurniture.payload;
+package com.yoka.yokafurniture.payload.Dimension;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.yoka.yokafurniture.payload;
+package com.yoka.yokafurniture.payload.OrderItem;
 
-import com.yoka.yokafurniture.entity.Article;
+import com.yoka.yokafurniture.payload.Article.ArticleDto;
 import lombok.*;
 
 @Getter

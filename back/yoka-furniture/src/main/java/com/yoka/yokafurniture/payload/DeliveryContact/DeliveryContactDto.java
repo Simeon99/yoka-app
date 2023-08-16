@@ -1,5 +1,6 @@
-package com.yoka.yokafurniture.payload;
+package com.yoka.yokafurniture.payload.DeliveryContact;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,11 +10,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeliveryAddressDto {
+public class DeliveryContactDto {
+
     private long id;
     private String firstName;
     private String lastName;
-    private String address;
-    private String city;
-    private String country;
+    private String phone;
+    private String companyName;
+    private long pib;
+    private long identificationNumber;
+
 }

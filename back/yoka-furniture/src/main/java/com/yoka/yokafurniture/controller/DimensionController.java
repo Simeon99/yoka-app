@@ -1,13 +1,11 @@
 package com.yoka.yokafurniture.controller;
 
-import com.yoka.yokafurniture.payload.DimensionDto;
-import com.yoka.yokafurniture.payload.DimensionResponse;
+import com.yoka.yokafurniture.payload.Dimension.DimensionDto;
+import com.yoka.yokafurniture.payload.Dimension.DimensionResponse;
 import com.yoka.yokafurniture.service.DimensionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/")

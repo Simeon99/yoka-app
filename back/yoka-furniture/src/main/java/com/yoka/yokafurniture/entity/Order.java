@@ -22,6 +22,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(updatable = false)
     private Date date;
     private double totalPrice;
 
@@ -29,6 +30,8 @@ public class Order {
     private Set<OrderItem> orderItems = new HashSet<>();
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private DeliveryAddress deliveryAddress;
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private DeliveryContact deliveryContact;
 
 
     public void addOrderItem(OrderItem orderItem){

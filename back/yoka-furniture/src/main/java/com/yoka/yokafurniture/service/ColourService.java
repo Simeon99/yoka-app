@@ -1,7 +1,7 @@
 package com.yoka.yokafurniture.service;
 
-import com.yoka.yokafurniture.payload.ColourDto;
-import com.yoka.yokafurniture.payload.ColourResponse;
+import com.yoka.yokafurniture.payload.Colour.ColourDto;
+import com.yoka.yokafurniture.payload.Colour.ColourResponse;
 
 import java.util.List;
 import java.util.Locale;

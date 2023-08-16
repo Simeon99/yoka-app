@@ -1,6 +1,6 @@
 package com.yoka.yokafurniture.controller;
 
-import com.yoka.yokafurniture.payload.DeliveryAddressDto;
+import com.yoka.yokafurniture.payload.DeliveryAdress.DeliveryAddressDto;
 import com.yoka.yokafurniture.service.DeliveryAddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

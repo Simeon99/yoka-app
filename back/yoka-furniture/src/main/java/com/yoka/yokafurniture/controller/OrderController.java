@@ -1,17 +1,13 @@
 package com.yoka.yokafurniture.controller;
 
-import com.yoka.yokafurniture.payload.OrderCreateDto;
-import com.yoka.yokafurniture.payload.OrderDto;
-import com.yoka.yokafurniture.payload.OrderResponse;
+import com.yoka.yokafurniture.payload.Order.OrderCreateDto;
+import com.yoka.yokafurniture.payload.Order.OrderDto;
+import com.yoka.yokafurniture.payload.Order.OrderResponse;
 import com.yoka.yokafurniture.service.OrderService;
 import com.yoka.yokafurniture.utils.AppConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -27,7 +23,9 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderDto> createOrder(@RequestBody OrderCreateDto orderCreateDto){
 
-        return new ResponseEntity<>(orderService.createOrder(orderCreateDto.getArticlesMap(), orderCreateDto.getDeliveryAddressDto()), HttpStatus.CREATED);
+        boolean isSpecial = Boolean.parseBoolean(orderCreateDto.getIsSpecial());
+
+        return new ResponseEntity<>(orderService.createOrder(orderCreateDto.getOrderItemToCreateList(), orderCreateDto.getDeliveryAddressDto(), orderCreateDto.getDeliveryContactDto(), isSpecial), HttpStatus.CREATED);
 
     }
 

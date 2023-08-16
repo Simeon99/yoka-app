@@ -3,8 +3,9 @@ package com.yoka.yokafurniture.service.impl;
 import com.yoka.yokafurniture.entity.Article;
 import com.yoka.yokafurniture.entity.Category;
 import com.yoka.yokafurniture.exception.ResourceNotFoundException;
-import com.yoka.yokafurniture.payload.ArticleDto;
-import com.yoka.yokafurniture.payload.ArticleResponse;
+import com.yoka.yokafurniture.payload.Article.ArticleDto;
+import com.yoka.yokafurniture.payload.Article.ArticleDtoResponse;
+import com.yoka.yokafurniture.payload.Article.ArticleResponse;
 import com.yoka.yokafurniture.repository.ArticleRepository;
 import com.yoka.yokafurniture.repository.CategoryRepository;
 import com.yoka.yokafurniture.service.ArticleService;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -49,7 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleResponse getAllArticles(int pageNo, int pageSize, String sortBy, String sortDir) {
+    public ArticleResponse getAllArticles(int pageNo, int pageSize, String sortBy, String sortDir, Locale locale) {
 
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
@@ -59,7 +61,8 @@ public class ArticleServiceImpl implements ArticleService {
 
         List<Article> articleList = articles.getContent();
 
-        List<ArticleDto> content = articleList.stream().map(article -> mapToDto(article)).collect(Collectors.toList());
+        List<ArticleDtoResponse> content = articleList.stream().map(article -> mapToDtoResponse(article, locale)).collect(Collectors.toList());
+
 
         ArticleResponse articleResponse = new ArticleResponse();
         articleResponse.setArticleDtos(content);
@@ -73,19 +76,19 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> getAllArticlesByCategoryId(long categoryId) {
+    public List<ArticleDtoResponse> getAllArticlesByCategoryId(long categoryId, Locale locale) {
 
         List<Article> articles= articleRepository.findByCategoryId(categoryId);
 
-        return articles.stream().map(article -> mapToDto(article)).collect(Collectors.toList());
+        return articles.stream().map(article -> mapToDtoResponse(article, locale)).collect(Collectors.toList());
     }
 
     @Override
-    public ArticleDto getArticleById(long id) {
+    public ArticleDtoResponse getArticleById(long id, Locale locale) {
 
         Article article = articleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Article","id", id));
 
-        return mapToDto(article);
+        return mapToDtoResponse(article, locale);
     }
 
     @Override
@@ -94,7 +97,6 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = articleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Article","id", id));
 
         article.setName(articleDto.getName());
-        article.setPrice(articleDto.getPrice());
         article.setDiscount(articleDto.getDiscount());
 
         articleRepository.save(article);
@@ -111,6 +113,14 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleDto mapToDto(Article article){
 
         ArticleDto articleDto = mapper.map(article, ArticleDto.class);
+
+        return articleDto;
+    }
+    private ArticleDtoResponse mapToDtoResponse(Article article, Locale locale){
+        ArticleDtoResponse articleDto = mapper.map(article, ArticleDtoResponse.class);
+        if (locale.toString().equalsIgnoreCase("sr")){
+            articleDto.setName(article.getNameSr());
+        }
 
         return articleDto;
     }

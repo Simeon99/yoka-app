@@ -4,7 +4,7 @@ import com.yoka.yokafurniture.entity.Article;
 import com.yoka.yokafurniture.entity.ArticleImage;
 import com.yoka.yokafurniture.exception.AppAPIExceptions;
 import com.yoka.yokafurniture.exception.ResourceNotFoundException;
-import com.yoka.yokafurniture.payload.ArticleImageDto;
+import com.yoka.yokafurniture.payload.ArticleImage.ArticleImageDto;
 import com.yoka.yokafurniture.repository.ArticleImageRepository;
 import com.yoka.yokafurniture.repository.ArticleRepository;
 import com.yoka.yokafurniture.service.ArticleImageService;

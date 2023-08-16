@@ -1,6 +1,6 @@
 package com.yoka.yokafurniture.controller;
 
-import com.yoka.yokafurniture.payload.FileUploadResponse;
+import com.yoka.yokafurniture.payload.File.FileUploadResponse;
 import com.yoka.yokafurniture.service.FileStoreService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.Resource;

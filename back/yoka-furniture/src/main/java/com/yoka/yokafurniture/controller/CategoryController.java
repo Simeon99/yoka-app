@@ -1,12 +1,10 @@
 package com.yoka.yokafurniture.controller;
 
-import com.yoka.yokafurniture.payload.CategoryDto;
-import com.yoka.yokafurniture.payload.CategoryResponse;
-import com.yoka.yokafurniture.payload.Description.DescriptionResponse;
+import com.yoka.yokafurniture.payload.Category.CategoryDto;
+import com.yoka.yokafurniture.payload.Category.CategoryResponse;
 import com.yoka.yokafurniture.service.CategoryService;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -24,8 +24,8 @@ public class Article{
     private long id;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "price", nullable = false)
-    private double price;
+    @Column(name = "name_sr", nullable = false)
+    private String nameSr;
     @Column(name = "discount")
     private double discount;
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -57,6 +57,8 @@ public class Article{
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<OrderItem> orderItems = new HashSet<>();
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ArticlePrice> articlePrice = new HashSet<>();
 
     private void addColour(Colour colour){
         this.colours.add(colour);
@@ -67,7 +69,6 @@ public class Article{
         OrderItem orderItemRemove= this.orderItems.stream().filter(o -> o.getId() == orderItem.getId()).findFirst().orElse(null);
         if (orderItemRemove != null){
             this.orderItems.remove(orderItemRemove);
-//            orderItemRemove.setOrder(null);
         } else throw  new AppAPIExceptions(HttpStatus.BAD_REQUEST,"Order does not have this orderItem.");
     }
 
