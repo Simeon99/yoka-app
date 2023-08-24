@@ -61,11 +61,24 @@ public class ColourServiceImpl implements ColourService {
     }
 
     @Override
+    public ColourResponse getColourById(long colourId, Locale locale) {
+        Colour colour = colourRepository.findById(colourId).orElseThrow(()->new ResourceNotFoundException("Colour", "id", colourId));
+
+        if(locale.toString().equalsIgnoreCase("sr")){
+            return mapToDtoSr(colour);
+        }else if(locale.toString().equalsIgnoreCase("en")){
+            return mapToDtoEn(colour);
+        }
+
+        return mapToDtoEn(colour);
+    }
+
+    @Override
     public void addColourToArticle(long colourId, long articleId) {
 
         Article article = articleRepository.findById(articleId).orElseThrow(()->new ResourceNotFoundException("Article", "id", articleId));
 
-        Colour colour = colourRepository.findById(colourId).orElseThrow(()->new ResourceNotFoundException("Colour", "id", articleId));
+        Colour colour = colourRepository.findById(colourId).orElseThrow(()->new ResourceNotFoundException("Colour", "id", colourId));
 
         colour.getArticles().forEach(article1 -> {
             if(article1.getId() == articleId) throw new AppAPIExceptions(HttpStatus.BAD_REQUEST, "Article already have this colour.");

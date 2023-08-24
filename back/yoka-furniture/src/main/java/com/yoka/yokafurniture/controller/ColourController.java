@@ -55,6 +55,14 @@ public class ColourController {
         return colourService.getColorsByArticleId(articleId, LocaleContextHolder.getLocale());
     }
 
+    @CrossOrigin
+    @GetMapping("colours/{colourId}")
+    public ColourResponse getColourById (@PathVariable (name = "colourId") long colourId,
+                                                      @RequestHeader(name = "Accept-Language", required = false) Locale locale){
+        return colourService.getColourById(colourId, LocaleContextHolder.getLocale());
+    }
+
+
     @PostMapping("articles/{articleId}/colours/{colourId}")
     public ResponseEntity<String> addColourToArticle(@PathVariable (name = "articleId") long articleId,
                                                      @PathVariable (name = "colourId") long colourId){
